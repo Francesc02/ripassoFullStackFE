@@ -37,8 +37,10 @@ export class LoginComponent implements OnInit{
     if(this.loginForm.value.username=="" || this.loginForm.value.password == ""){
       this.risultato="c'è qualcosa vuota";
     }else{
-      this.apiService.insertUser(this.loginForm.value.username,this.loginForm.value.password).subscribe(x=>{
-          this.risultato=x;
+      this.apiService.login(this.loginForm.value.username,this.loginForm.value.password).subscribe(x=>{
+          if(x == true){
+            this.router.navigate(["home"]);
+          }
       })
 
     }

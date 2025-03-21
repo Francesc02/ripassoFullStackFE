@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../service/api.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -38,10 +39,20 @@ export class RegisterComponent {
   if(this.loginForm.value.username=="" || this.loginForm.value.password == ""){
     this.risultato="c'è qualcosa vuota";
   }else{
-    this.apiService.insertUser(this.loginForm.value.username,this.loginForm.value.password).subscribe(x=>{
-        this.risultato=x;
-    })
+    this.apiService.register(
+      this.loginForm.value.username,
+      this.loginForm.value.password
+    ).subscribe({
+      next: (response) => {
+      },
+      error: (error: HttpErrorResponse) => {
 
+        console.log("apposto frate")
+        console.log("Registrazione completata con successo:", error);
+        this.risultato = error;
+        this.router.navigate(["home"]);
+      }
+    });
   }
 
  }

@@ -16,11 +16,14 @@ export class ApiService {
    return this.httpClient.get(this.URL + "get")
   }
 
-  insertUser(username:string,password:string):Observable<any>{
-
+  register(username:string,password:string):Observable<any>{
     const body = {username,password}
-
     return this.httpClient.post(this.URL + "insertUser", body);
+  }
+
+  login(username:string,password:string):Observable<any>{
+    const body = {username,password}
+    return this.httpClient.post(this.URL + "login", body);
   }
 
 }
