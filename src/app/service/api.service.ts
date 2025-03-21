@@ -12,20 +12,15 @@ export class ApiService {
 
   URL="http://localhost:8080/api/";
 
-  provaGet(query:string):Observable<any>{
-
-    let risultato:any;
-
-   this.httpClient.get(this.URL + "get?query=" + query).subscribe(x=>{
-
-    risultato = x;
-
-
-   });
-   
-   return risultato;
-   
+  provaGet():Observable<any>{
+   return this.httpClient.get(this.URL + "get")
   }
 
+  insertUser(username:string,password:string):Observable<any>{
+
+    const body = {username,password}
+
+    return this.httpClient.post(this.URL + "insertUser", body);
+  }
 
 }
